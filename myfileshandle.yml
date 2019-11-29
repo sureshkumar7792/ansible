@@ -1,0 +1,22 @@
+---
+ - hosts: webservers
+   become: yes
+   tasks: 
+   - include_tasks: myfile.yml
+   - name: install apache2 on ubuntu
+     apt:
+      name: "{{webserversonubuntu}}"
+      state: present
+     when: ansible_os_family =="Debian"
+   - name: start server
+     service: 
+      name: "{{webserversonubuntu}}"
+      state: started
+     when: ansible_os_family =="Debian"   
+   - name: copy index.j2 file into anisble node side 
+     template:
+      src: index.j2
+      dest: /var/www/html/index.html
+
+
+  

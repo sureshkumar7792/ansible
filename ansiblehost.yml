@@ -1,0 +1,19 @@
+---
+- hosts: localhost
+  become: yes
+  tasks:
+  - name: create ansiblenodes
+    ec2:
+     key_name: testing1
+     instance_type: t2.micro
+     image: ami-09dc3f2fa632184be
+     region: us-west-2
+     wait: yes
+     group: launch-wizard-8
+     instance_tags:
+      Name: uubuntu
+     count: 1
+     vpc_subnet_id: subnet-b04d5fc9
+     assign_public_ip: yes
+
+
